@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PatientsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PatientDetails">
+          <Key>
+            <PropertyRef Name="Patient_ID" />
+          </Key>
+          <Property Name="Patient_ID" Type="int" Nullable="false" />
+          <Property Name="Temperature" Type="float" />
+          <Property Name="Height" Type="float" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="BMI" Type="float" />
+          <Property Name="IdealBodyWeight" Type="float" />
+          <Property Name="BodyFat" Type="float" />
+          <Property Name="BoneMass" Type="float" />
+          <Property Name="MuscleMass" Type="float" />
+          <Property Name="BodyWater" Type="float" />
+          <Property Name="Waist" Type="float" />
+          <Property Name="Hip" Type="float" />
+          <Property Name="WaistHipRatio" Type="float" />
+          <Property Name="WaistHeightRatio" Type="float" />
+          <Property Name="BloodPressure" Type="varchar" MaxLength="10" />
+          <Property Name="Pulse" Type="int" />
+          <Property Name="SPO2" Type="float" />
+          <Property Name="ECG" Type="bit" />
+          <Property Name="HaemoglobinCount" Type="float" />
+          <Property Name="SputumTest" Type="bit" />
+          <Property Name="VaccinationHB" Type="bit" />
+          <Property Name="VaccinationTyphoid" Type="bit" />
+          <Property Name="EyeTest" Type="nvarchar" MaxLength="10" />
+          <Property Name="SkinTest" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Patient_ID" />
+          </Key>
+          <Property Name="Patient_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Patient_Location" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="char" MaxLength="6" />
+          <Property Name="Age" Type="int" />
+          <Property Name="ExaminedOn" Type="date" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar(max)" />
+          <Property Name="RegisteredOn" Type="date" />
+          <Property Name="Roles" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__PatientDe__Patie__08EA5793">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="PatientDetails" Type="Self.PatientDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Patient_ID" />
+            </Principal>
+            <Dependent Role="PatientDetails">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PatientsDBModelStoreContainer">
+          <EntitySet Name="PatientDetails" EntityType="Self.PatientDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PatientDe__Patie__08EA5793" Association="Self.FK__PatientDe__Patie__08EA5793">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientDetails" EntitySet="PatientDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PatientsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Patient_ID" />
+          </Key>
+          <Property Name="Patient_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patient_Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="ExaminedOn" Type="DateTime" Precision="0" />
+          <Property Name="Temperature" Type="Double" />
+          <Property Name="Height" Type="Double" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="BMI" Type="Double" />
+          <Property Name="IdealBodyWeight" Type="Double" />
+          <Property Name="BodyFat" Type="Double" />
+          <Property Name="BoneMass" Type="Double" />
+          <Property Name="MuscleMass" Type="Double" />
+          <Property Name="BodyWater" Type="Double" />
+          <Property Name="Waist" Type="Double" />
+          <Property Name="Hip" Type="Double" />
+          <Property Name="WaistHipRatio" Type="Double" />
+          <Property Name="WaistHeightRatio" Type="Double" />
+          <Property Name="BloodPressure" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Pulse" Type="Int32" />
+          <Property Name="SPO2" Type="Double" />
+          <Property Name="ECG" Type="Boolean" />
+          <Property Name="HaemoglobinCount" Type="Double" />
+          <Property Name="SputumTest" Type="Boolean" />
+          <Property Name="VaccinationHB" Type="Boolean" />
+          <Property Name="VaccinationTyphoid" Type="Boolean" />
+          <Property Name="EyeTest" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SkinTest" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RegisteredOn" Type="DateTime" Precision="0" />
+          <Property Name="Roles" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="PatientsDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PatientsDBModelStoreContainer" CdmEntityContainer="PatientsDBEntities">
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="PatientsDBModel.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+                <ScalarProperty Name="Patient_Name" ColumnName="Patient_Name" />
+                <ScalarProperty Name="Patient_Location" ColumnName="Patient_Location" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="ExaminedOn" ColumnName="ExaminedOn" />
+              </MappingFragment>
+              <MappingFragment StoreEntitySet="PatientDetails">
+                <ScalarProperty Name="SkinTest" ColumnName="SkinTest" />
+                <ScalarProperty Name="EyeTest" ColumnName="EyeTest" />
+                <ScalarProperty Name="VaccinationTyphoid" ColumnName="VaccinationTyphoid" />
+                <ScalarProperty Name="VaccinationHB" ColumnName="VaccinationHB" />
+                <ScalarProperty Name="SputumTest" ColumnName="SputumTest" />
+                <ScalarProperty Name="HaemoglobinCount" ColumnName="HaemoglobinCount" />
+                <ScalarProperty Name="ECG" ColumnName="ECG" />
+                <ScalarProperty Name="SPO2" ColumnName="SPO2" />
+                <ScalarProperty Name="Pulse" ColumnName="Pulse" />
+                <ScalarProperty Name="BloodPressure" ColumnName="BloodPressure" />
+                <ScalarProperty Name="WaistHeightRatio" ColumnName="WaistHeightRatio" />
+                <ScalarProperty Name="WaistHipRatio" ColumnName="WaistHipRatio" />
+                <ScalarProperty Name="Hip" ColumnName="Hip" />
+                <ScalarProperty Name="Waist" ColumnName="Waist" />
+                <ScalarProperty Name="BodyWater" ColumnName="BodyWater" />
+                <ScalarProperty Name="MuscleMass" ColumnName="MuscleMass" />
+                <ScalarProperty Name="BoneMass" ColumnName="BoneMass" />
+                <ScalarProperty Name="BodyFat" ColumnName="BodyFat" />
+                <ScalarProperty Name="IdealBodyWeight" ColumnName="IdealBodyWeight" />
+                <ScalarProperty Name="BMI" ColumnName="BMI" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PatientsDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegisteredOn" ColumnName="RegisteredOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />       
+</head>
+<body>
+    <div>
+        Username : <input type="text" id="txtUsername" />
+        Password : <input type="password" id="txtPassword" />
+        <br /><br />
+        <input id="btn" type="button" value="Authenticate and Get patients" />
+        <input id="btnClear" type="button" value="Clear" />
+        <ul id="ulEmployees" />
+        </div>
+       
+        <script src="Scripts/jquery-1.10.2.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                
+                $('#btn').click(function () {
+                    var ulEmployees = $('#ulEmployees');
+                    var userName = $('#txtUsername').val();
+                    var password = $('#txtPassword').val();
+                    $.ajax({
+                        type: 'GET',
+                                // Make sure to change the port number to
+                                // where you have the patient details service
+                                // running on your local machine
+                        url: 'http://localhost:55767/api/patientdetails',
+                        dataType: 'json',
+                        Headers: {
+                            'Authorization': 'Basic ' + btoa(userName + ':' + password)                            
+                        },
+                        crossDomain: true,                       
+                        success: function (data) {
+                                    // ulEmployees.empty();
+                         console.log(data);
+                                    //var fullName = val.Patient_Name + ' ' + val.Patient_Location;
+                                    //ulEmployees.append('<li>' + fullName + '</li>')
+                        },
+                        error: function (jqXHR) {
+                            if (jqXHR.status == '401') {
+                                ulEmployees.empty();
+                                ulEmployees.append('<li>' + jqXHR.status + ':' + jqXHR.statusText + '</li>');
+                            }                            
+                        }
+                    });
+                });
+
+                $('#btnClear').click(function () {
+                    ulEmployees.empty();
+                });
+            });
+        </script>
+</body>
+</html>

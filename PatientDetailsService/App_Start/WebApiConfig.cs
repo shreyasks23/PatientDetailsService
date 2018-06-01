@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http.Cors;
 
 namespace PatientDetailsService
 {
@@ -25,6 +26,23 @@ namespace PatientDetailsService
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //Register Basic Authentication attribute
+            config.Filters.Add(new BasicAuthenticationAttribute());
+
+            ////Enables HTTPS redirection
+            //config.Filters.Add(new RequireHttpsAttribute());
+
+            //Enable Cross Origin Resource Sharing
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
+
+            //Remove XML Formatter
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            //Add JSON formatter and set CamelCase property resolver
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }
